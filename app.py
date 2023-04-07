@@ -24,7 +24,6 @@ LISTEN_ALL = "0.0.0.0"
 FLASK_IP = LISTEN_ALL
 FLASK_PORT = 81
 FLASK_DEBUG = True
-# FLASK_RUN_CERT = "adhoc"
 
 # app config
 app = Flask(__name__)
@@ -54,7 +53,7 @@ def check_login():
             return redirect(url_for('show_login'))
 
 
-@app.route("/dashboard", methods=["GET", "POST"])
+@app.route("/dashboard")
 def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
@@ -174,7 +173,7 @@ def api_get_answers(meetingId):
     })
 
 
-@app.route('/api/class/json', methods=["GET"])
+@app.route('/api/class/json')
 def api_get_docentmeeting():
 
     docent_meeting = meetingdb.get_all_meetings()
@@ -230,12 +229,12 @@ def student():
     return render_template('student.html')
 
 
-@app.post('/student')  # shortcut voor methods = ["POST"]
+@app.post('/student')
 def student_post():
     return render_template('student.html')
 
 
-@app.route('/student/<studentId>', methods=["GET", "DELETE"])
+@app.route('/student/<studentId>')
 def studentid(studentId):
     return render_template('studentid.html')
 
@@ -276,7 +275,7 @@ def teacher():
     return render_template('teacher.html', teachers=t_list)
 
 
-@app.post('/teacher')  # shortcut voor methods = ["POST"]
+@app.post('/teacher')
 def teacher_post():
     return render_template('teacher.html')
 
@@ -298,7 +297,7 @@ def studentclass():
     return render_template('class.html', classes=class_list)
 
 
-@app.post('/class')  # shortcut voor methods = ["POST"]
+@app.post('/class')
 def studentclass_post():
     return render_template('class.html')
 
