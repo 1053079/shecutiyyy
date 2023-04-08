@@ -8,15 +8,16 @@
         <h1>Voeg nieuw gebruiker toe</h1>            
         <div>
             <form id="user" method="POST" action="/admin/account/add">
+                <label for="docent">Docentencode</label>
+                <input type="text" name="docent" value="{{docent}}">
                 <label for="email">Email</label>
-                <input type="text" name="email" value="{{email}}">
+                <input type="text" pattern=".+@hr\.nl" name="email" value="{{email}}">
                 <label for="wachtwoord">Wachtwoord</label>
                 <input type="password" name="wachtwoord" value="{{wachtwoord}}">
-                <label for="type">Type</label>
+                <label for="admin">Admin</label>
                 <input type="checkbox" name="is_admin" value="{{admin}}">
                 <button><span><a type="submit" id="admin_stuff">Voeg gebruiker toe</a></span></button>
             </form>
-            
         </div>
     </div>
 {% endblock %}

@@ -4,7 +4,7 @@ from sqlite3 import OperationalError
 
 
 class MeetingManagement:
-    """regelt de docenten enzo"""
+    """logic for adding meetings"""
 
     def __init__(self, db_file):
         self.db_file = db_file
@@ -38,7 +38,7 @@ class MeetingManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def get_meeting(self, meetingid):
@@ -64,7 +64,7 @@ class MeetingManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return meeting_info
 
@@ -91,6 +91,6 @@ class MeetingManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return meeting_info

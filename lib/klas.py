@@ -4,7 +4,7 @@ from lib.db import Database
 
 
 class ClassManagement(Database):
-    """regelt de klassen enzo"""
+    """klassen crud"""
 
     def __init__(self, db_file):
         super().__init__(db_file)
@@ -21,7 +21,7 @@ class ClassManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return classes
 
@@ -37,7 +37,7 @@ class ClassManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return enrollment
     
@@ -52,7 +52,7 @@ class ClassManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def edit_class(self, klas):
@@ -66,7 +66,7 @@ class ClassManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def delete_class(self, klas):
@@ -80,5 +80,5 @@ class ClassManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e

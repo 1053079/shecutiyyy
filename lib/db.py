@@ -4,7 +4,7 @@ from sqlite3 import OperationalError
 
 
 class Database:
-    """yo idek man. dit is de database gebeuren ayylmao"""
+    """dit is de database gebeuren"""
 
     def __init__(self, db_file):
         try:

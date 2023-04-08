@@ -4,7 +4,7 @@ from lib.db import Database
 
 
 class Login(Database):
-    """regelt login enzo"""
+    """dit zou de login moeten doen maar (insert shrugging emoji)"""
 
     def __init__(self, db_file):
         super().__init__(db_file)
@@ -21,6 +21,6 @@ class Login(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return user

@@ -4,7 +4,7 @@ from lib.db import Database
 
 
 class TeacherManagement(Database):
-    """regelt de docenten enzo"""
+    """docenten crud"""
 
     def __init__(self, db_file):
         super().__init__(db_file)
@@ -21,7 +21,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
         return teacher
@@ -38,7 +38,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
         return teacher
@@ -62,7 +62,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
         return t_list
@@ -88,7 +88,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return t_list
 
@@ -105,7 +105,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def edit_teacher(self, voornaam, achternaam, email, id):
@@ -121,7 +121,7 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
     
     def delete_teacher(self, id):
@@ -135,5 +135,5 @@ class TeacherManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
