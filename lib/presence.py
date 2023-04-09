@@ -1,13 +1,14 @@
 import os
 import sqlite3
 from sqlite3 import OperationalError
+from lib.db import Database
 
 
-class PresenceManagement:
+class PresenceManagement(Database):
+    '''db statements voor aanwezigheid studenten'''
+    
     def __init__(self, db_file):
-        self.db_file = db_file
-        if not os.path.exists(self.db_file):
-            raise FileNotFoundError(f"F in the chat for {db_file}")
+        super().__init__(db_file)
 
     def get_presence(self, meetingid):
         try:
@@ -38,7 +39,7 @@ class PresenceManagement:
                     "class": info[7]
                 })
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return presence_info
 
@@ -58,7 +59,7 @@ class PresenceManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def get_presence_student(self, student_id):
@@ -85,6 +86,6 @@ class PresenceManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return p_s_list

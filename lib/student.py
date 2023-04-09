@@ -4,7 +4,7 @@ from lib.db import Database
 
 
 class StudentManagement(Database):
-    """regelt de studenten enzo"""
+    """studenten crud"""
 
     def __init__(self, db_file):
         super().__init__(db_file)
@@ -21,7 +21,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return student
     
@@ -37,7 +37,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return students
     
@@ -60,7 +60,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return s_list
     
@@ -81,7 +81,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return s_list
 
@@ -99,7 +99,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return students
     
@@ -115,7 +115,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def edit_student(self, voornaam, achternaam, studentennummer):
@@ -130,7 +130,7 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def delete_student(self, studentennummer):
@@ -144,5 +144,5 @@ class StudentManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e

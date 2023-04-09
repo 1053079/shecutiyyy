@@ -3,7 +3,8 @@ import os
 
 from os import environ, path
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, session, redirect, url_for, json, jsonify, flash
+from flask import Flask, render_template, request, session, redirect, url_for, json, jsonify, flash 
+from flask_bcrypt import Bcrypt
 
 from lib.account import AccountManagement
 from lib.login import Login
@@ -30,6 +31,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = '../databases/demo_data.db'
+flask_bcrypt = Bcrypt(app)
 
 # database shiz
 DB_FILE = os.path.join(app.root_path, "databases", "demo_data.db")
@@ -578,21 +580,27 @@ def add_account_post():
     
     email = request.form.get('email').strip()
     wachtwoord = request.form.get('wachtwoord')
-    docent = request.form.get('docent').strip()
+    docent = request.form.get('docent')
     admin =request.form.get('admin')
+
+    print(wachtwoord)
+
+    hashed_ww = flask_bcrypt.generate_password_hash(wachtwoord).decode('utf-8')
+    is_valid = flask_bcrypt.check_password_hash(hashed_ww, wachtwoord)
+    print(hashed_ww, is_valid)
 
     if admin == "on":
         admin = 1
     else:
         admin = 0
 
-    accdb.create_account(email, wachtwoord, docent, admin)
+    accdb.create_account(email, hashed_ww, docent, admin)
 
     flash("Gebruiker aangemaakt!", "info")
     return redirect(url_for('accounts'))
 
 
-@app.put('/account/<account>')
+@app.put('/account/<accountId>')
 def update_account(accountId):
 
     acc_json = request.get_json()
@@ -603,7 +611,14 @@ def update_account(accountId):
     docent = acc_json.get('docent')
     is_admin = acc_json.get('is_admin')
 
-    accdb.update_account(email, wachtwoord, docent, is_admin, id)
+    print(wachtwoord)
+
+    hashed_ww = flask_bcrypt.generate_password_hash(wachtwoord).decode('utf-8')
+    is_valid = flask_bcrypt.check_password_hash(hashed_ww, wachtwoord)
+    
+    print(hashed_ww, is_valid)
+
+    accdb.update_account(email, hashed_ww, docent, is_admin, id)
     flash("Gebruiker bewerkt!", "info")
 
     return redirect('users.html')
@@ -614,7 +629,8 @@ def delete_account(accountId):
 
     accdb.delete_account(accountId)
     
-    return flash("Gebruiker verwijderd!", "warning")
+    flash("Gebruiker verwijderd!", "warning")
+    return redirect(url_for('accounts'))
 
 
 @app.route('/api/inschrijvingen')
@@ -660,7 +676,7 @@ def add_enrollment_post():
 
     enrollmentdb.add_enrollment(student, klas)
 
-    flash("asdfghjkl!", "info")
+    flash("Inschrijving toegevoegd!", "info")
     return redirect(url_for('admin_enrollment'))
 
 

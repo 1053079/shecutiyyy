@@ -3,7 +3,7 @@ from sqlite3 import OperationalError
 from lib.db import Database
 
 class AccountManagement(Database):
-    """regelt de account enzo"""
+    """crud voor docenten accounts"""
 
     def __init__(self, db_file):
         super().__init__(db_file)
@@ -20,7 +20,7 @@ class AccountManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def get_account_detail(self, id):
@@ -35,7 +35,7 @@ class AccountManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return account
 
@@ -56,7 +56,7 @@ class AccountManagement(Database):
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return account_list
 
@@ -65,14 +65,14 @@ class AccountManagement(Database):
             conn = sqlite3.connect(self.db_file)
             cursor = conn.cursor()
 
-            cursor.execute(f"UPDATE login SET email = ?, wachtwoord = ?,docent = ?, is_admin = ? "
+            cursor.execute(f"UPDATE login SET email = ?, wachtwoord = ?, docent = ?, is_admin = ? "
                            f"WHERE id = ?", [email, wachtwoord, docent, admin, id])
             conn.commit() 
 
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def delete_account(self, id):
@@ -80,17 +80,18 @@ class AccountManagement(Database):
             conn = sqlite3.connect(self.db_file)
             cursor = conn.cursor()
 
-            cursor.execute(f"DELETE FROM login WHERE id = ?", [id])
+            #cursor.execute(f"DELETE FROM login WHERE id = ?", [id])
+            cursor.execute(f"UPDATE login SET is_verwijderd = 1 WHERE id = ?", [id])
             conn.commit()
 
             # need to reset sqlite_sequence table bc user_id = autoincrement
-            reset_seq_qry = "UPDATE 'sqlite_sequence' " \
-                            "SET 'seq' = (SELECT MAX('id') FROM 'login') WHERE 'name' = 'login'"
-            cursor.execute(reset_seq_qry)
-            conn.commit() 
+            # reset_seq_qry = "UPDATE 'sqlite_sequence' " \
+            #                 "SET 'seq' = (SELECT MAX('id') FROM 'login') WHERE 'name' = 'login'"
+            # cursor.execute(reset_seq_qry)
+            # conn.commit() 
 
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e

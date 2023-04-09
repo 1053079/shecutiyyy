@@ -4,7 +4,7 @@ from sqlite3 import OperationalError
 
 
 class CheckinManagement:
-    """Wordt geregeld door docenten """
+    """check-in logic"""
 
     def __init__(self, db_file):
         self.db_file = db_file
@@ -25,7 +25,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
     def get_results(self):
@@ -40,7 +40,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
 
         return results
@@ -59,7 +59,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         
     def update_question(self, json_data):
@@ -75,7 +75,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
     
     def post_answers(self, json_data):
@@ -92,7 +92,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
     
     def patch_checkin(self, json_data):
@@ -111,7 +111,7 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
             
     def show_answers(self, meetingid):
@@ -125,6 +125,6 @@ class CheckinManagement:
             conn.close()
 
         except OperationalError as e:
-            print("yeet")
+            print(e)
             raise e
         return results
