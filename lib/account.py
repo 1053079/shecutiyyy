@@ -65,7 +65,7 @@ class AccountManagement(Database):
             conn = sqlite3.connect(self.db_file)
             cursor = conn.cursor()
 
-            cursor.execute(f"UPDATE login SET email = ?, wachtwoord = ?,docent = ?, is_admin = ? "
+            cursor.execute(f"UPDATE login SET email = ?, wachtwoord = ?, docent = ?, is_admin = ? "
                            f"WHERE id = ?", [email, wachtwoord, docent, admin, id])
             conn.commit() 
 
