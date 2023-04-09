@@ -41,7 +41,9 @@ if __name__ == "__main__":
 ```
 De camera functionaliteit kan niet aangezet worden als het via http gaat, dus verander http naar https nadat de bovenstaande code is vervangen.
 
-Je browser gaat waarschijnlijk ook een melding geven dat de verbinding niet veilig is omdat de certificaten self-signed zijn, klik op ```Geavanceerd``` en daarna op ```Doorgaan naar <url> (onveilig) (Chrome) / Het risico aanvaarden (Firefox)``` .  <sub>~~er wordt geen malware geïnstalleerd, trust me~~</sub>
+Je browser gaat waarschijnlijk ook een melding geven dat de verbinding niet veilig is, omdat de certificaten self-signed zijn. Klik op ```Geavanceerd``` en daarna op ```Doorgaan naar <url> (onveilig) (Chrome) / Het risico aanvaarden (Firefox)``` .  
+
+<sub>~~er wordt geen malware geïnstalleerd, trust me~~</sub>
 
 ## Om deze webapplicatie te starten doe het volgende:
 ```
