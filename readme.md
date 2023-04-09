@@ -39,11 +39,14 @@ if __name__ == "__main__":
     # app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG)
     app.run(host=FLASK_IP, port=FLASK_PORT, debug=FLASK_DEBUG, ssl_context=ctx)
 ```
-Omdat de camera functionaliteit anders niet aangezet kan worden als het via http gaat.
-Voor de url moet je ook https zetten.
+De camera functionaliteit kan niet aangezet worden als het via http gaat, dus verander http naar https nadat de bovenstaande code is vervangen.
+
+Je browser gaat waarschijnlijk ook een melding geven dat de verbinding niet veilig is omdat de certificaten self-signed zijn, klik op ```Geavanceerd``` en daarna op ```Doorgaan naar <url> (onveilig) (Chrome) / Het risico aanvaarden (Firefox)``` .  <sub>~~er wordt geen malware geïnstalleerd, trust me~~</sub>
 
 
-## Om deze webapplicatie doe het volgende:
+
+
+## Om deze webapplicatie te starten doe het volgende:
 ```
 pip install virtualenv
 virtualenv venv
