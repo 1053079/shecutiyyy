@@ -4,6 +4,7 @@ Flask-Login
 Flask-Security-Too
 Flask-WTF
 Flask-bcrypt
+bcrypt
 wtforms
 mysql-connector-python
 python-dotenv
