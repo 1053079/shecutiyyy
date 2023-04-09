@@ -55,3 +55,5 @@ pip install -r requirements.txt
 .\venv\scripts\activate
 python app.py
 ```
+
+.env bestand van hier downloaden :https://cdn.discordapp.com/attachments/1069646658205388953/1082771881423290398/env en in de root folder plakken.
