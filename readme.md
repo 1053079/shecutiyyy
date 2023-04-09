@@ -31,7 +31,7 @@ Dit is onze web-applicatie voor het inchecken van studenten die gebruik maakt va
 
     Docent met admin rechten kan de database aanpassen.
 
-## :warning :LET OP!!! :biohazard:
+## :warning: LET OP!!! :biohazard:
 Voor het testen van de QR scan vervang ```if __name__ == "__main__":``` met:
 ```
 if __name__ == "__main__":
