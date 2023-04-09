@@ -17,7 +17,7 @@
         {% if session.logged_in %}
         <div id="header_menu">
             <div id="header_menu_buttons">
-                {% if session.username == 'admin' %}<button><span><a href="/admin">Admin</a></span></button>{% endif %}
+                {% if session.user_type == 'admin' %}<button><span><a href="/admin">Admin</a></span></button>{% endif %}
                 <button><span><a href="/teacher">Docenten</a></span></button>
                 <button><span><a href="/student">Studenten</a></span></button>
                 <button><span><a href="/class">Klassen</a></span></button>
@@ -37,7 +37,7 @@
 
     <div id="slide_menu">
         <div id="slide_buttons">
-            {% if session.username == 'admin' %}<button><span><a href="/admin">Admin</a></span></button>{% endif %}
+            {% if session.user_type == 'admin' %}<button><span><a href="/admin">Admin</a></span></button>{% endif %}
             <button><span><a href="/teacher">Docenten</a></span></button>
             <button><span><a href="/student">Studenten</a></span></button>
             <button><span><a href="/class">Klassen</a></span></button>

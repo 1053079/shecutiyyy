@@ -3,7 +3,7 @@ Flask-SQLAlchemy
 Flask-Login
 Flask-Security-Too
 Flask-WTF
-bcrypt
+Flask-bcrypt
 wtforms
 mysql-connector-python
 python-dotenv
