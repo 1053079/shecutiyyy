@@ -308,7 +308,7 @@ def studentclass_post():
 def admin():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('index'))
     return render_template('admin.html')
 
@@ -317,7 +317,7 @@ def admin():
 def admin_klas():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('class.html')
 
@@ -326,7 +326,7 @@ def admin_klas():
 def add_klas():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('addklas.html')
 
@@ -335,7 +335,7 @@ def add_klas():
 def add_klas_post():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     klas = request.form.get('klas').strip()
@@ -359,7 +359,7 @@ def api_get_students_admin():
 def admin_student():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('adminstudent.html')
 
@@ -368,7 +368,7 @@ def admin_student():
 def admin_studentid(studentId):
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     student_info = studentdb.get_student(studentId)
@@ -411,7 +411,7 @@ def delete_student(studentId):
 def add_student():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('addstudent.html')
 
@@ -420,7 +420,7 @@ def add_student():
 def add_student_post():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     studentennummer = request.form.get('studentennummer').strip()
@@ -446,7 +446,7 @@ def api_get_teachers_admin():
 def admin_teacher():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('adminteacher.html')
 
@@ -455,7 +455,7 @@ def admin_teacher():
 def admin_teacherid(teacherId):
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     docent_info = teacherdb.get_teacher(teacherId)
@@ -500,7 +500,7 @@ def delete_teacher(teacherId):
 def add_teacher():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('addteacher.html')
 
@@ -509,7 +509,7 @@ def add_teacher():
 def add_teacher_post():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     docentencode = request.form.get('docentencode').strip()
@@ -535,7 +535,7 @@ def api_get_accounts():
 def accounts():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('users.html')
 
@@ -544,7 +544,7 @@ def accounts():
 def accountid(accountId):
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
 
     account_info = accdb.get_account_detail(accountId)
@@ -566,7 +566,7 @@ def accountid(accountId):
 def add_account():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('adduser.html')
 
@@ -575,7 +575,7 @@ def add_account():
 def add_account_post():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     email = request.form.get('email').strip()
@@ -646,7 +646,7 @@ def api_get_enrollments():
 def admin_enrollment():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     return render_template('enrollment.html')
 
@@ -655,7 +655,7 @@ def admin_enrollment():
 def add_enrollment():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     class_list = classdb.get_class()
@@ -668,7 +668,7 @@ def add_enrollment():
 def add_enrollment_post():
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     student = request.form.get('student')
@@ -684,7 +684,7 @@ def add_enrollment_post():
 def enrollmentid(enrollmentId):
     if not session.get('logged_in'):
         return redirect(url_for('show_login'))
-    elif not session.get('username') == 'admin':
+    elif not session.get('user_type') == 'admin':
         return redirect(url_for('dashboard'))
     
     enrollment = enrollmentdb.get_single_enrollment(enrollmentId)
@@ -736,13 +736,27 @@ def show_login():
 
 @app.post("/handle_login")
 def handle_login():
-    if request.form["password"] == "password" and request.form["username"] == "admin" or \
-            request.form["password"] == "password" and request.form["username"] == "docent":
+    email = request.form.get("username")
+    wachtwoord = request.form.get("password")
+    print(email, wachtwoord)
+    check = logindb.login_user(email, wachtwoord)
+    print(check)
+
+    if(check):
         session["logged_in"] = True
-        session['username'] = request.form["username"]
+        session['username'] = email
+
+        if(check[4] == 1):
+            session['user_type'] = "admin"
+        else:
+            session['user_type'] = "docent"
+
     else:
         flash("Invalid Password or Username.", "warning")
         return render_template("login.html")
+    
+    print(session["user_type"])
+    
     return redirect(url_for('dashboard'))
 
 
