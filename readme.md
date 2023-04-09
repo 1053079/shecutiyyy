@@ -57,3 +57,11 @@ python app.py
 ```
 
 .env bestand van hier downloaden :https://cdn.discordapp.com/attachments/1069646658205388953/1082771881423290398/env en in de root folder plakken.
+
+**wachtwoorden**
+
+| email         | wachtwoord    | type docent|
+| ------------- |:-------------:| ----------:|
+| meyef@hr.nl   | admin         | admin      |
+| knufi@hr.nl   | test          | docent     |
+| aelfm@hr.nl   | hunter2       | admin      |
