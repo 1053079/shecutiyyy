@@ -56,6 +56,16 @@ def check_login():
         if not session.get("logged_in", "username"):
             return redirect(url_for('show_login'))
 
+"""
+After request we get a response from Flask. We put X-Frame-Options in the header and set it to 'SAMEORIGIN'. This will
+help us prevent malicious users from clickjacking because we have disabled iframes unless it comes from
+our website.
+"""
+@app.after_request
+def anti_clickjacking(response):
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    return response
+
 
 @app.route("/dashboard")
 def dashboard():
