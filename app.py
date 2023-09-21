@@ -4,6 +4,7 @@ import os
 from os import environ, path
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session, redirect, url_for, json, jsonify, flash 
+from flask_wtf import CSRFProtect
 
 from lib.account import AccountManagement
 from lib.login import Login
@@ -26,10 +27,13 @@ FLASK_PORT = 81
 FLASK_DEBUG = True
 
 # app config
+# Security opdracht comment : App.secret_Key en CSRFProtect hier. CSRFProtect geimporteerd van flask_wtf
 app = Flask(__name__)
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = '../databases/demo_data.db'
+app.secret_key =  b'_53oi3uriq9pifpff;apl'
+csrf = CSRFProtect(app)
 
 # database shiz
 DB_FILE = os.path.join(app.root_path, "databases", "demo_data.db")

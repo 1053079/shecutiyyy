@@ -4,9 +4,34 @@
 {{ super() }}
 {% endblock head %}
 {% block content %}
+
+<!-- Currently you will find 2 login forms on http://127.0.0.1:81/login, this is for the sake of testing the login forms. 
+You can use meyef@hr.nl as username and admin for password. -->
+
+<!--    This is the new login form WITH CSRF token! You can login just fine with this one -->
         <main>
             <form action="/handle_login" method="POST" class="login-form">
                 <p class="login-header"><b>Log in</b></p>
+                    {{ message }}
+                <p class="username-field">
+                    <label for="username"><b>Student number or personnel code</b></label><br>
+                    <input id="username" type="text" name="username" class="login-field">
+                </p>
+                <p class="password-field">
+                    <label for="password"><b>Password</b></label><br>
+                    <input id="password" type="password" name="password" class="login-field">
+                </p>
+                <p class="submit-btn5">
+                    <input id="submit" type="submit" value="Login" class="submit">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                </p>
+            </form>
+
+<!-- This is the old one WITHOUT the csrf_token. 
+     This will send you to a new page that says 'Bad Request The CSRF token is missing' -->
+
+            <form action="/handle_login" method="POST" class="login-form">
+                <p class="login-header"><b>Log in (no CSRF) </b></p>
                     {{ message }}
                 <p class="username-field">
                     <label for="username"><b>Student number or personnel code</b></label><br>
