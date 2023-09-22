@@ -32,11 +32,19 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = '../databases/demo_data.db'
+app.config.update(
+        SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+)
 app.secret_key =  b'_53oi3uriq9pifpff;apl'
 csrf = CSRFProtect(app)
 
 # database shiz
 DB_FILE = os.path.join(app.root_path, "databases", "demo_data.db")
+
+# 
+# SERVER_NAME = 'Courage the Cowardly Dog'
 
 accdb = AccountManagement(DB_FILE)
 logindb = Login(DB_FILE)
@@ -68,6 +76,7 @@ def headers_protection_stuff(response):
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     response.headers['Content-Security-Policy']= "default-src 'self'; form-action 'self'; frame-ancestors 'self';"
     response.headers['X-Content-Type-Options'] = 'Nosniff'
+    # response.headers['Server'] = Server_Name
     return response
 
 
