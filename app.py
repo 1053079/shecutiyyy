@@ -67,6 +67,7 @@ Additionally we also put the CSP in the headers to fix the OWASP alert of CSP He
 def headers_protection_stuff(response):
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     response.headers['Content-Security-Policy']= "default-src 'self'; form-action 'self'; frame-ancestors 'self';"
+    response.headers['X-Content-Type-Options'] = 'Nosniff'
     return response
 
 
