@@ -59,12 +59,16 @@ def check_login():
 """
 After request we get a response from Flask. We put X-Frame-Options in the header and set it to 'SAMEORIGIN'. This will
 help us prevent malicious users from clickjacking because we have disabled iframes unless it comes from
-our website.
+our website
+
+Additionally we also put the CSP in the headers to fix the OWASP alert of CSP Headers not set. 
 """
 @app.after_request
-def anti_clickjacking(response):
+def headers_protection_stuff(response):
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+    response.headers['Content-Security-Policy']= "default-src 'self'; form-action 'self'; frame-ancestors 'self';"
     return response
+
 
 
 @app.route("/dashboard")
