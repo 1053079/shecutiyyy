@@ -55,7 +55,7 @@ function fill_table(meeting_list) {
     table.appendChild(tb);
     for (const meeting of meeting_list) {
         let tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + meeting["name"] + '</td>'
+        tr.textContent = '<td>' + meeting["name"] + '</td>'
             + '<td>' + meeting["date"] + '</td>'
             + '<td>' + meeting["start_time"] + '</td>'
             + '<td>' + meeting["end_time"] + '</td>';

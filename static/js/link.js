@@ -44,7 +44,7 @@ function createTable(meetingArray) {
         while (planningLength < arrayLength && planningLength < maxLength) {
             if (dateFiltered[planningLength]["teacher"].includes(teacherSelectBox.value)) {
                 console.log(dateFiltered[planningLength]["teacher"])
-                tbody.innerHTML +=
+                tbody.textContent +=
                     "<td><strong> " + dateFiltered[planningLength]["name"] + "</strong></td>" + " " +
                     "<td><small>" + dateFiltered[planningLength]["date"] + "</small></td>" + " " +
                     "<td><small>" + dateFiltered[planningLength]["start_time"] + "</small></td>" + " " +

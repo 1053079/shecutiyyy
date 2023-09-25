@@ -1,4 +1,4 @@
-async function get_students(){
+async function get_students() {
     try {
         const response = await fetch('../api/adminstudent');
         const students = await response.json();
@@ -6,7 +6,7 @@ async function get_students(){
         fill_table(students["studenten"])
         search_table(students);
 
-    } catch(error) {
+    } catch (error) {
         const err = document.querySelector("#student_table")
         const txt = document.createElement('p');
 
@@ -17,14 +17,14 @@ async function get_students(){
     }
 }
 
-function search_table(students){
+function search_table(students) {
     const student_list = students["studenten"];
 
-    document.querySelector("#search_input").addEventListener('input', function(){
+    document.querySelector("#search_input").addEventListener('input', function () {
         // get the value from the input box
         let value = this.value.trim();
 
-        if (value){
+        if (value) {
             let search_match = [];
             let i = 0;
             while (i < student_list.length) {
@@ -38,30 +38,30 @@ function search_table(students){
                 i++
             }
             fill_table(search_match)
-        }else{
+        } else {
             // if the input box is empty place back all the rows of student_list
             fill_table(student_list)
         }
     })
 }
 
-function fill_table(student_list){
+function fill_table(student_list) {
     const table = document.querySelector("#student_table table");
     const tb = document.querySelector("#student_table tbody");
     // empty the table
     tb.replaceChildren()
     // place the filtered student_list rows in the table
     table.appendChild(tb);
-    for(const student of student_list){
+    for (const student of student_list) {
         let tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + student["id"] + '</td>'
-        + '<td>' + student["voornaam"] + '</td>'
-        + '<td>' + student["achternaam"] + '</td>';
+        tr.textContent = '<td>' + student["id"] + '</td>'
+            + '<td>' + student["voornaam"] + '</td>'
+            + '<td>' + student["achternaam"] + '</td>';
         tb.appendChild(tr);
     }
     // a click function for all rows that redirects to the student page of the selected row
     document.querySelectorAll("#student_table tbody tr").forEach(row => {
-        row.addEventListener("click", function (){
+        row.addEventListener("click", function () {
             window.location.href = "/admin/student/" + this.cells[0].innerHTML
         }, false)
     })

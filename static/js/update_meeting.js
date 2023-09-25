@@ -161,7 +161,7 @@ function fillAnswers(answers) {
 
     for (const answer of answers) {
         let tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + answer[2] + "</td>"
+        tr.textContent = '<td>' + answer[2] + "</td>"
         console.log(answer)
         tb.appendChild(tr);
     }

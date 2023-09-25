@@ -1,4 +1,4 @@
-async function get_student_presence(){
+async function get_student_presence() {
     try {
         const url = window.location.pathname.split('/')
         const urlId = url[2]
@@ -8,7 +8,7 @@ async function get_student_presence(){
         fill_name(presence["presence"][0])
         fill_table(presence["presence"])
 
-    } catch(error) {
+    } catch (error) {
         const err = document.querySelector("#student_table")
         const txt = document.createElement('p');
 
@@ -19,20 +19,20 @@ async function get_student_presence(){
     }
 }
 
-function fill_name(name){
+function fill_name(name) {
     const namePlate = document.querySelector("#student_name")
     namePlate.replaceChildren()
-    namePlate.innerHTML = name["voornaam"] + " " + name["achternaam"]
+    namePlate.textContent = name["voornaam"] + " " + name["achternaam"]
 }
 
-function fill_table(presence_list){
+function fill_table(presence_list) {
     const table = document.querySelector("#table_student_presence table");
     const tb = document.querySelector("#table_student_presence tbody");
     // empty the table
     tb.replaceChildren()
 
     table.appendChild(tb);
-    for(const data of presence_list){
+    for (const data of presence_list) {
         let tr = document.createElement('tr');
         let presence = ""
         switch (data["aanwezigheid"]) {
@@ -46,12 +46,12 @@ function fill_table(presence_list){
                 presence = '<td class="maybe_presence">Afgemeld</td>'
                 break
         }
-        tr.innerHTML = '<td>' + data["naam"] + '</td>'
-        + '<td>' + data["datum"] + '</td>'
-        + presence
+        tr.textContent = '<td>' + data["naam"] + '</td>'
+            + '<td>' + data["datum"] + '</td>'
+            + presence
 
         // a click function for all rows that redirects to the meeting page of the selected row
-        tr.addEventListener("click", function (){
+        tr.addEventListener("click", function () {
             window.location.href = "/meeting/" + data["meeting"]
         })
         tb.appendChild(tr);

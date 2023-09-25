@@ -1,13 +1,13 @@
-async function get_classes(){
+async function get_classes() {
     try {
         const response = await fetch('../api/klas');
         const klas = await response.json();
-        
+
         console.log(`${JSON.stringify(klas)}`);
 
         fill_table(klas);
 
-    } catch(error) {
+    } catch (error) {
         const err = document.getElementById('test');
         const txt = document.createElement('p');
 
@@ -18,17 +18,17 @@ async function get_classes(){
     }
 }
 
-function fill_table(obj){
+function fill_table(obj) {
     const table = document.getElementById('tabel');
     const klassen = obj.klassen;
     const tb = document.createElement('tbody');
-    
+
     table.appendChild(tb);
-    
-    for(const klas of klassen){
-        
+
+    for (const klas of klassen) {
+
         let tr = document.createElement('tr');
-        tr.innerHTML = '<td>' + klas + '</td>';
+        tr.textContent = '<td>' + klas + '</td>';
         tb.appendChild(tr);
     }
 }

@@ -1,4 +1,4 @@
-async function get_accounts(){
+async function get_accounts() {
     try {
         const response = await fetch('../api/accounts');
         const accounts = await response.json();
@@ -7,7 +7,7 @@ async function get_accounts(){
 
         fill_table(accounts)
 
-    } catch(error) {
+    } catch (error) {
         const err = document.querySelector("#user_table")
         const txt = document.createElement('p');
 
@@ -18,25 +18,25 @@ async function get_accounts(){
     }
 }
 
-function fill_table(obj){
+function fill_table(obj) {
     const table = document.querySelector("#user_table table");
     const accounts = obj.accounts;
     const tb = document.querySelector("#user_table tbody");
-    
+
     tb.replaceChildren()
     table.appendChild(tb);
 
-    for(const account of accounts){
+    for (const account of accounts) {
         let tr = document.createElement('tr');
-        tr.innerHTML = '<td id="doei">' + account["id"] + '</td>'
-        + '<td>' + account["email"] + '</td>'
-        + '<td>' + account["docent"] + '</td>'
-        + '<td>' + account["is_admin"] + '</td>';
+        tr.textContent = '<td id="doei">' + account["id"] + '</td>'
+            + '<td>' + account["email"] + '</td>'
+            + '<td>' + account["docent"] + '</td>'
+            + '<td>' + account["is_admin"] + '</td>';
         tb.appendChild(tr);
     }
     // copypasta click function
     document.querySelectorAll("#user_table tbody tr").forEach(row => {
-        row.addEventListener("click", function (){
+        row.addEventListener("click", function () {
             window.location.href = "/account/" + this.cells[0].innerHTML
         }, false)
     })
