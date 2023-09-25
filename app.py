@@ -24,7 +24,7 @@ load_dotenv(projpath)
 LISTEN_ALL = "0.0.0.0"
 FLASK_IP = LISTEN_ALL
 FLASK_PORT = 81
-FLASK_DEBUG = True
+FLASK_DEBUG = False
 
 # app config
 # Security opdracht comment : App.secret_Key en CSRFProtect hier. CSRFProtect geimporteerd van flask_wtf
@@ -42,9 +42,6 @@ csrf = CSRFProtect(app)
 
 # database shiz
 DB_FILE = os.path.join(app.root_path, "databases", "demo_data.db")
-
-# 
-# SERVER_NAME = 'Courage the Cowardly Dog'
 
 accdb = AccountManagement(DB_FILE)
 logindb = Login(DB_FILE)
@@ -74,9 +71,8 @@ Additionally we also put the CSP in the headers to fix the OWASP alert of CSP He
 @app.after_request
 def headers_protection_stuff(response):
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-    response.headers['Content-Security-Policy']= "default-src 'self'; form-action 'self'; frame-ancestors 'self';"
+    response.headers['Content-Security-Policy']= "default-src 'self'; form-action 'self'; frame-ancestors 'self'; script-src 'self' https://unpkg.com ;"
     response.headers['X-Content-Type-Options'] = 'Nosniff'
-    # response.headers['Server'] = Server_Name
     return response
 
 
