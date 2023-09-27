@@ -5,6 +5,7 @@ from os import environ, path
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session, redirect, url_for, json, jsonify, flash 
 from flask_wtf import CSRFProtect
+from flask_bcrypt import Bcrypt
 
 from lib.account import AccountManagement
 from lib.login import Login
@@ -37,6 +38,7 @@ app.config.update(
     SESSION_COOKIE_HTTPONLY=True,
     SESSION_COOKIE_SAMESITE='Lax',
 )
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.secret_key =  b'_53oi3uriq9pifpff;apl'
 csrf = CSRFProtect(app)
 
@@ -53,6 +55,7 @@ meetingdb = MeetingManagement(DB_FILE)
 presencedb = PresenceManagement(DB_FILE)
 checkindb = CheckinManagement(DB_FILE)
 
+bcrypt = Bcrypt(app)
 
 # routes
 @app.before_request
@@ -747,8 +750,9 @@ def show_login():
 def handle_login():
     email = request.form.get("username")
     wachtwoord = request.form.get("password")
-    print(email, wachtwoord)
-    check = logindb.login_user(email, wachtwoord)
+    hashed_password = bcrypt.generate_password_hash
+    (wachtwoord).decode('utf-8')
+    check = logindb.login_user(hashed_password, wachtwoord)
     print(check)
 
     if(check):
@@ -774,6 +778,17 @@ def logout():
     session.pop('logged_in', 'username')
     return redirect(url_for("index"))
 
+
+@app.route("/sign_up")
+def sign_up():
+    return render_template("signup.html")
+
+@app.route("/handle_signup")
+def handle_sign_up():
+    name = input("")
+    password = input("")
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    return redirect (url_for("dashboard"))
 
 @app.route("/QRgen/<meetingId>")
 def qrgen(meetingId):

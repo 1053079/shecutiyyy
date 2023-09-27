@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Studenten{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock head %}
+{% block content %}
+<main>
+    <form action="/handle_signup" method="POST" class="login-form">
+        <p class="login-header"><b>Registreer</b></p>
+            {{ message }}
+        <p class="username-field">
+            <label for="username"><b>Personnel code</b></label><br>
+            <input id="username" type="text" name="username" class="login-field">
+        </p>
+        <p class="password-field">
+            <label for="password"><b>Password</b></label><br>
+            <input id="password" type="password" name="password" class="login-field">
+        </p>
+        <p class="submit-btn5">
+            <input id="submit" type="submit" value="Submit" class="submit">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        </p>
+    </form>
+</main>
+{% endblock %}
+{% block script %}
+    {{ super() }}
+{% endblock script %}
