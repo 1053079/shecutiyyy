@@ -750,9 +750,9 @@ def show_login():
 def handle_login():
     email = request.form.get("username")
     wachtwoord = request.form.get("password")
-    hashed_password = bcrypt.generate_password_hash
-    (wachtwoord).decode('utf-8')
-    check = logindb.login_user(hashed_password, wachtwoord)
+    # hashed_password = bcrypt.generate_password_hash
+    # (wachtwoord).decode('utf-8')
+    check = logindb.login_user(email, wachtwoord)
     print(check)
 
     if(check):
@@ -783,12 +783,18 @@ def logout():
 def sign_up():
     return render_template("signup.html")
 
-@app.route("/handle_signup")
+@app.route("/handle_signup", methods= ['POST','GET'])
 def handle_sign_up():
-    name = input("")
-    password = input("")
+   if request.method == 'POST':
+    username = request.form["username"]
+    password = request.form["password"]
+    docent = '1'
+    admin = '0'
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    return redirect (url_for("dashboard"))
+
+    accdb.create_account(username,hashed_password, docent, admin)
+
+    return redirect (url_for("show_login"))
 
 @app.route("/QRgen/<meetingId>")
 def qrgen(meetingId):
