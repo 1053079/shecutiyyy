@@ -1,4 +1,5 @@
 import sqlite3
+from flask_bcrypt import Bcrypt
 from sqlite3 import OperationalError
 from lib.db import Database
 
@@ -9,13 +10,26 @@ class Login(Database):
     def __init__(self, db_file):
         super().__init__(db_file)
 
-    def login_user(self, usn, pwd):
+    def login_user(self, usn, password):
         try:
             conn = sqlite3.connect(self.db_file)
+            self.bcrypt = Bcrypt()
             cursor = conn.cursor()
-
-            cursor.execute("SELECT * FROM login WHERE email = ? AND wachtwoord = ?",[usn, pwd])
+            
+            cursor.execute("SELECT wachtwoord FROM login WHERE email = ?",[usn])
             user = cursor.fetchone()
+            print(user)
+            if user:
+                password = password
+                stored_hashed_password = user[0]
+                print('password ' + password)
+                print('stored hash pw ' + stored_hashed_password)
+                if self.bcrypt.check_password_hash(stored_hashed_password, password):
+                    print('you have successfully logged in as ' + usn)
+                    return user
+                else:
+                    print('Incorrect username or password')
+                    return None
             print(user)
             conn.commit() 
 

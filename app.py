@@ -7,6 +7,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 from flask_wtf import CSRFProtect
 from flask_bcrypt import Bcrypt
 
+
 from lib.account import AccountManagement
 from lib.login import Login
 from lib.student import StudentManagement
@@ -749,20 +750,27 @@ def show_login():
 @app.post("/handle_login")
 def handle_login():
     email = request.form.get("username")
-    wachtwoord = request.form.get("password")
-    # hashed_password = bcrypt.generate_password_hash
-    # (wachtwoord).decode('utf-8')
-    check = logindb.login_user(email, wachtwoord)
+    password = request.form.get("password")
+    # login
+    check = logindb.login_user(email, password)
     print(check)
+    # if check:
+    #     hashed_password = check[0]
+    #     password_given = password.encode('utf-8')
+    #     if bcrypt.check_password_hash(password_given, hashed_password):
+        #     print('login success')
+        # else:
+        #     print('login fail')    
+   
 
     if(check):
         session["logged_in"] = True
         session['username'] = email
 
-        if(check[4] == 1):
-            session['user_type'] = "admin"
-        else:
-            session['user_type'] = "docent"
+        # if(check[4] == 1):
+        #     session['user_type'] = "admin"
+        # else:
+        #     session['user_type'] = "docent"
 
     else:
         flash("Invalid Password or Username.", "warning")
@@ -790,9 +798,11 @@ def handle_sign_up():
     password = request.form["password"]
     docent = '1'
     admin = '0'
+    
+    
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-
-    accdb.create_account(username,hashed_password, docent, admin)
+    
+    accdb.create_account(username, hashed_password,docent, admin)
 
     return redirect (url_for("show_login"))
 

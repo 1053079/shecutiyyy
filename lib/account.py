@@ -8,13 +8,13 @@ class AccountManagement(Database):
     def __init__(self, db_file):
         super().__init__(db_file)
 
-    def create_account(self, email, wachtwoord, docent, admin):
+    def create_account(self, email, hashed_password, docent, admin):
         try:
             conn = sqlite3.connect(self.db_file)
             cursor = conn.cursor()
 
             cursor.execute("INSERT INTO login (email, wachtwoord, docent, is_admin) "
-                           "VALUES (?, ?, ?, ?)", [email, wachtwoord, docent, admin])
+                           "VALUES (?, ?, ?, ?)", [email, hashed_password, docent, admin])
             conn.commit() 
 
             conn.close()
