@@ -751,17 +751,9 @@ def show_login():
 def handle_login():
     email = request.form.get("username")
     password = request.form.get("password")
-    # login
+    # sends the parameters to login user..
     check = logindb.login_user(email, password)
     print(check)
-    # if check:
-    #     hashed_password = check[0]
-    #     password_given = password.encode('utf-8')
-    #     if bcrypt.check_password_hash(password_given, hashed_password):
-        #     print('login success')
-        # else:
-        #     print('login fail')    
-   
 
     if(check):
         session["logged_in"] = True

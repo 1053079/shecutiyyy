@@ -26,14 +26,18 @@ class Login(Database):
                 print('stored hash pw ' + stored_hashed_password)
                 if self.bcrypt.check_password_hash(stored_hashed_password, password):
                     print('you have successfully logged in as ' + usn)
+                    conn.commit() 
+                    conn.close()
                     return user
                 else:
                     print('Incorrect username or password')
+                    conn.commit() 
+                    conn.close()
                     return None
-            print(user)
-            conn.commit() 
-
-            conn.close()
+            else:
+                print(user)
+                conn.commit() 
+                conn.close()
 
         except OperationalError as e:
             print(e)
