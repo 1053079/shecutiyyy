@@ -19,14 +19,13 @@ async function update_docent(id){
                 'Content-Type' : 'application/json'
             },
             body: toJson()
-        }).then(()=> {
+        }).then(() => {
             window.location.reload();
+        }).catch(() => {
+            console.log(error)
         })
-
         console.log("Allons-y")
-
-    } catch(error) {
-
+  } catch(error) {
         console.log(error);
     }
 }
@@ -37,6 +36,8 @@ async function delete_docent(id){
             method: 'DELETE'
         }).then(()=> {
             window.location.assign('/admin/teacher');
+        }).catch(() => {
+            console.log(error)
         })
 
         console.log("Nope. Not gettin' outta this chair.")

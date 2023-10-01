@@ -23,10 +23,10 @@ async function update_enrollment(id){
             body: toJson()
         }).then(()=> {
             window.location.reload();
+        },).catch(() => {
+            console.log(error)
         })
-
         console.log("Kidneys!! I've got new kidneys! ...I don't like the colour.")
-
     } catch(error) {
         console.log(error);
     }

@@ -22,6 +22,8 @@ async function update_student(id){
             body: toJson()
         }).then(()=> {
             window.location.reload();
+        }).catch(() => {
+            console.log(error)
         })
 
         console.log("You're pretty good!")

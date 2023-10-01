@@ -25,6 +25,8 @@ async function update_account(id){
             body: toJson()
         }).then(()=> {
             window.location.reload();
+        }).catch(() => {
+            console.log(error)
         })
 
         console.log("I hear it's amazing when the famous purple stuffed worm in flap-jaw space with the tuning fork does a raw blink on Hara-Kiri Rock.")
