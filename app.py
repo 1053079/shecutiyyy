@@ -11,6 +11,7 @@ from functools import wraps
 from datetime import datetime, timedelta
 
 
+
 from lib.account import AccountManagement
 from lib.login import Login
 from lib.student import StudentManagement
@@ -34,7 +35,6 @@ FLASK_DEBUG = False
 # app config
 # Security opdracht comment : App.secret_Key en CSRFProtect hier. CSRFProtect geimporteerd van flask_wtf
 app = Flask(__name__)
-app.config['SECRET_KEY'] = environ.get('SECRET_KEY')
 app.config['JSON_SORT_KEYS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = '../databases/demo_data.db'
 app.config.update(
@@ -43,7 +43,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Lax',
 )
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-app.secret_key =  b'_53oi3uriq9pifpff;apl'
+app.secret_key =  'DirectShot'
 csrf = CSRFProtect(app)
 
 # database shiz
@@ -695,7 +695,7 @@ def token_required(func):
          payload = jwt.decode(token, app.config['SECRET_KEY'])
         except:
          return jsonify ({'Alert' : 'Invalid Token'})
-    return decorated    
+    return decorated 
 
 @app.post('/admin/enrollment/add')
 def add_enrollment_post():
@@ -771,31 +771,29 @@ def show_login():
 def handle_login():
     email = request.form.get("username")
     password = request.form.get("password")
-    # sends the parameters to login user..
+    
+    # sends the parameters to logindb.login_user() and gets the result
     check = logindb.login_user(email, password)
     print(check)
 
-    if(check):
+    if check:
         session["logged_in"] = True
         session['username'] = email
         token = jwt.encode({
             "user": email,
-            "exp": str(datetime.utcnow() + timedelta(seconds=120))
+            "exp": int((datetime.utcnow() + timedelta(hours=6)).timestamp())
         }, app.config['SECRET_KEY'])
-        return jsonify({'token': token.decode('utf-8')})
+        print('secret key is' + app.config['SECRET_KEY'])
+        print('Your JWT token is ' + token)
+        return redirect(url_for('dashboard'))
         # if(check[4] == 1):
         #     session['user_type'] = "admin"
         # else:
         #     session['user_type'] = "docent"
-        
     else:
         flash("Invalid Password or Username.", "warning")
         return render_template("login.html")
     
-    print(session["user_type"])
-    
-    return redirect(url_for('dashboard'))
-
 @app.route('/public')
 def public():
     return'For Public'
