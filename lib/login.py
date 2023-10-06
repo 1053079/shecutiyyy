@@ -22,9 +22,6 @@ class Login(Database):
             if user:
                 password = password
                 stored_hashed_password = user[2]
-                print(user[0])
-                print(user[1])
-                print(user[2])
                 if self.bcrypt.check_password_hash(stored_hashed_password, password):
                     print('you have successfully logged in as ' + usn)
                     conn.commit() 

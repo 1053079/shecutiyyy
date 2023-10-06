@@ -776,6 +776,11 @@ def handle_login():
     if check:
         session["logged_in"] = True
         session['username'] = email
+        if(check[4] == 1):
+            session['user_type'] = "admin"
+        else:
+            session['user_type'] = "docent"
+
         token = jwt.encode({
             "user": email,
             "exp": int((datetime.utcnow() + timedelta(hours=6)).timestamp())
@@ -783,10 +788,7 @@ def handle_login():
         print('secret key is ' + app.config['SECRET_KEY'])
         print('Your JWT token is ' + token)
         return redirect(url_for('dashboard'))
-        # if(check[4] == 1):
-        #     session['user_type'] = "admin"
-        # else:
-        #     session['user_type'] = "docent"
+
     else:
         flash("Invalid Password or Username.", "warning")
         return render_template("login.html")
