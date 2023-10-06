@@ -6,6 +6,9 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, session, redirect, url_for, json, jsonify, flash 
 from flask_wtf import CSRFProtect
 from flask_bcrypt import Bcrypt
+import jwt
+from functools import wraps
+from datetime import datetime, timedelta
 
 
 from lib.account import AccountManagement
@@ -79,7 +82,13 @@ def headers_protection_stuff(response):
     response.headers['X-Content-Type-Options'] = 'Nosniff'
     return response
 
+# @app.route('/token', methods=['POST'])
+# def create_token():
+#     username = request.json.get("username", None)
+#     password = request.json.get("password", None)
 
+#     user = user.query.filter.by(username=username, password=password).first()
+#     return
 
 @app.route("/dashboard")
 def dashboard():
@@ -676,6 +685,17 @@ def add_enrollment():
 
     return render_template('addenrollment.html', klassen=class_list, studenten=s_list)
 
+def token_required(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        token = request/args.get('token')
+        if not token:
+            return jsonify({'Alert':'Token is missing'})
+        try:
+         payload = jwt.decode(token, app.config['SECRET_KEY'])
+        except:
+         return jsonify ({'Alert' : 'Invalid Token'})
+    return decorated    
 
 @app.post('/admin/enrollment/add')
 def add_enrollment_post():
@@ -758,12 +778,16 @@ def handle_login():
     if(check):
         session["logged_in"] = True
         session['username'] = email
-
+        token = jwt.encode({
+            "user": email,
+            "exp": str(datetime.utcnow() + timedelta(seconds=120))
+        }, app.config['SECRET_KEY'])
+        return jsonify({'token': token.decode('utf-8')})
         # if(check[4] == 1):
         #     session['user_type'] = "admin"
         # else:
         #     session['user_type'] = "docent"
-
+        
     else:
         flash("Invalid Password or Username.", "warning")
         return render_template("login.html")
@@ -771,6 +795,16 @@ def handle_login():
     print(session["user_type"])
     
     return redirect(url_for('dashboard'))
+
+@app.route('/public')
+def public():
+    return'For Public'
+
+@app.route('/auth')
+@token_required
+def auth():
+ return 'JWT IS VERIFIED. WELCOME TO DASHBOARD'
+
 
 
 @app.route("/logout")
