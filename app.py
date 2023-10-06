@@ -10,8 +10,6 @@ import jwt
 from functools import wraps
 from datetime import datetime, timedelta
 
-
-
 from lib.account import AccountManagement
 from lib.login import Login
 from lib.student import StudentManagement
@@ -774,7 +772,6 @@ def handle_login():
     
     # sends the parameters to logindb.login_user() and gets the result
     check = logindb.login_user(email, password)
-    print(check)
 
     if check:
         session["logged_in"] = True
@@ -783,7 +780,7 @@ def handle_login():
             "user": email,
             "exp": int((datetime.utcnow() + timedelta(hours=6)).timestamp())
         }, app.config['SECRET_KEY'])
-        print('secret key is' + app.config['SECRET_KEY'])
+        print('secret key is ' + app.config['SECRET_KEY'])
         print('Your JWT token is ' + token)
         return redirect(url_for('dashboard'))
         # if(check[4] == 1):

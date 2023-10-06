@@ -16,14 +16,15 @@ class Login(Database):
             self.bcrypt = Bcrypt()
             cursor = conn.cursor()
             
-            cursor.execute("SELECT wachtwoord FROM login WHERE email = ?",[usn])
+            cursor.execute("SELECT * FROM login WHERE email = ?",[usn])
             user = cursor.fetchone()
             print(user)
             if user:
                 password = password
-                stored_hashed_password = user[0]
-                print('password ' + password)
-                print('stored hash pw ' + stored_hashed_password)
+                stored_hashed_password = user[2]
+                print(user[0])
+                print(user[1])
+                print(user[2])
                 if self.bcrypt.check_password_hash(stored_hashed_password, password):
                     print('you have successfully logged in as ' + usn)
                     conn.commit() 
